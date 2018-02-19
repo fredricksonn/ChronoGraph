@@ -16,6 +16,7 @@ response = urllib.urlopen(request).read()
 directions = json.loads(response)
 
 routes = directions['routes']
+print (routes)
 print("ROUTES")
 for i in range(0,len(routes)):
     print(routes[i]['summary'])
