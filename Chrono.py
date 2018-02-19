@@ -1,11 +1,27 @@
 import googlemaps
 import config
-from datetime import datetime as dt
+import urllib
+import json
 
-gmaps = googlemaps.Client(key=api_key)
+#potentially use list of McDonalds, Walmart, Taco Bell, OReilly Auto Parts addresses for origins/destinations
 
-now = dt.now()
+origin = '1970 W Valencia Road, Tucson, AZ'
+dest = 'S Wilmot Rd and E Broadway Blvd, Tucson'
 
-directions_result = gmaps.directions("Tucson, AZ","Phoenix, AZ",mode="transit", departure_time=now)
+endpoint = 'https://maps.google.com/maps/api/directions/json?'
+nav_req = 'origin={}&destination={}&key={}'.format(origin,dest,config.api_key)
 
-print (directions_result)
+request = endpoint + nav_req
+response = urllib.urlopen(request).read()
+directions = json.loads(response)
+
+routes = directions['routes']
+print("ROUTES")
+for i in range(0,len(routes)):
+    print(routes[i]['summary'])
+
+    print("LEGS")
+    legs = routes[i]['legs']
+    print(len(legs))
+    for j in range(0,len(legs)):
+        print legs[j]['distance']['text']
