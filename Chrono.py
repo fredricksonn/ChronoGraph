@@ -11,17 +11,17 @@ origin = '1970 W Valencia Road, Tucson, AZ'
 dest = 'S Wilmot Rd and E Broadway Blvd, Tucson'
 
 ### SET URL FOR REQUEST ###
-endpoint = 'https://maps.google.com/maps/api/directions/json?'
+nav_endpoint = 'https://maps.google.com/maps/api/directions/json?'
 nav_req = 'origin={}&destination={}&key={}'.format(origin,dest,config.api_key)
-alternative_req = '&alternatives={}'.format('true')
-request = endpoint + nav_req + alternative_req
-print (request)
+nav_alternative_req = '&alternatives={}'.format('true')
+nav_request = nav_endpoint + nav_req + nav_alternative_req
+print (nav_request)
 
 ### SEND REQUEST AND CATCH RESPONSE ###
-response = urllib.urlopen(request).read()
+nav_response = urllib.urlopen(nav_request).read()
 
 ### INTERPRET DATA INTO PYTHON TYPES ###
-directions = json.loads(response)
+directions = json.loads(nav_response)
 
 ### UNCOMMENT TO PRINT FULL FORMATTED OUTPUT ###
 #print(json.dumps(directions, sort_keys=False, indent=4))
